@@ -7,15 +7,32 @@ namespace Amino
 	/// <summary> A component which adds a rendered <see cref="Texture2D"/> sprite to its entity. </summary>
 	public class SpriteComponent : Component
     {
-		/// <summary> The texture the sprite renders. </summary>
-		protected Texture2D _texture;
-		/// <summary> The batch used when rendering the sprite. </summary>
-		private SpriteBatch _spriteBatch;
+		/// <summary> The key of the texture the sprite renders. </summary>
+		public string TextureKey => _textureKey;
+		protected string _textureKey;
+
 		/// <summary> How many pixels of the sprite's texture fit into one game unit at default scale. </summary>
+		public float PixelsPerUnit
+		{
+			get => _pixelsPerUnit;
+			set
+			{
+				if(value == _pixelsPerUnit)
+				{
+					return;
+				}
+				_pixelsPerUnit = value;
+				_pixelScale = new Vector2(1f / _pixelsPerUnit, 1f / _pixelsPerUnit);
+			}
+		}
 		private float _pixelsPerUnit;
 
+		/// <summary> The width and height each pixel of this sprite occupies, given its pixels per unit. </summary>
+		public Vector2 PixelScale => _pixelScale;
+		private Vector2 _pixelScale = Vector2.One;
+
 		/// <summary> The camera used to render the sprite. </summary>
-		protected Camera Camera => Owner.World.Camera;
+		protected CameraComponent Camera => Owner.World.Camera;
 
 		/// <summary> The color used to tint the sprite. </summary>
 		public Color Color { get; set; } = Color.White;
@@ -24,24 +41,22 @@ namespace Amino
 		/// The location of this sprite's pivot point, or the point on its texture that its origin will sit.
 		/// If (0.5, 0.5), the sprite will have the origin at its centre.
 		/// </summary>
-		public Vector2 Offset
+		public Vector2 OffsetFactor
 		{
-			get => _offset;
+			get => _offsetFactor;
 			set
 			{
-				if(value == _offset)
+				if(value == _offsetFactor)
 				{
 					return;
 				}
-				_offset = value;
+				_offsetFactor = value;
 				OffsetType = value.ToAnchorType();
 			}
 		}
-		private Vector2 _offset;
+		private Vector2 _offsetFactor;
 
-		/// <summary>
-		/// The location of this sprite's pivot point, or the point on its texture that its origin will sit.
-		/// </summary>
+		/// <summary> The location of this sprite's pivot point, or the point on its texture that its origin will sit. </summary>
 		public AnchorType OffsetType
 		{
 			get => _offsetType;
@@ -52,63 +67,39 @@ namespace Amino
 					return;
 				}
 				_offsetType = value;
-				_offset = value.ToVector();
+				_offsetFactor = value.ToVector();
 			}
 		}
 		private AnchorType _offsetType;
 
+		/// <summary> Get the matrix that can be used to transform this sprite's position into screenspace. </summary>
+		//public Matrix3x3 RenderTransform => Camera.RenderTransform * Owner.Transform;
+
 		/// <summary>
-		/// Construct a <see cref="SpriteComponent"/> with the default sprite.
-		/// To use this, a sprite must have been specified as the <see cref="Config.DefaultSprite"/>.
+		/// Create a <see cref="SpriteComponent"/>.
 		/// </summary>
-		public SpriteComponent(Entity owner) : base(owner)
+		/// <param name="textureKey">If unspecified, <see cref="Config.DefaultSprite"/> will be used.</param>
+		public static SpriteComponent Create(Entity owner, string? textureKey = null)
 		{
-			if(Config.DefaultSprite == null)
+			SpriteComponent c = new SpriteComponent(owner, textureKey);
+			owner.World.OnComponentCreated(c);
+			return c;
+		}
+
+		protected SpriteComponent(Entity owner, string? textureKey = null) : base(owner)
+        {
+			if(textureKey == null)
 			{
-				throw new InvalidOperationException($"Cannot call {nameof(SpriteComponent)} constructor with unspecified sprite: Specify a default sprite in {nameof(Config.DefaultSprite)}.");
+				if (Config.DefaultSprite == null)
+				{
+					throw new InvalidOperationException($"Cannot call {nameof(SpriteComponent)} constructor with unspecified sprite key: Specify a default sprite in {nameof(Config.DefaultSprite)}.");
+				}
+				textureKey = Config.DefaultSprite;
 			}
-			Init(World.Content.Load<Texture2D>(Config.DefaultSprite));
-		}
-
-        public SpriteComponent(Entity owner, string spriteName) : base(owner)
-        {
-            Init(World.Content.Load<Texture2D>(spriteName));
-        }
-
-        public SpriteComponent(Entity owner, Texture2D texture) : base(owner)
-        {
-            Init(texture);
-        }
-
-		private void Init(Texture2D texture)
-        {
+			
+			_textureKey = textureKey;
 			OffsetType = AnchorType.Centre;
-			_texture = texture;
-
-			World.Drawing += Draw;
-            _spriteBatch = new SpriteBatch(World.GraphicsDevice);
-			_pixelsPerUnit = Config.DefaultPixelsPerUnit;
+			PixelsPerUnit = Config.DefaultPixelsPerUnit;
 		}
-
-        private void Draw(GameTime gameTime)
-        {
-            _spriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-			Matrix3x3 renderTransform = Camera.RenderTransform * Owner.Transform;
-			Vector2 pixelPerUnitScale = new Vector2(1f / _pixelsPerUnit, 1f / _pixelsPerUnit);
-
-			_spriteBatch.Draw(
-                _texture,
-				renderTransform.Translation,
-                null,
-                Color,
-				renderTransform.Rotation,
-                new Vector2(Offset.X * _texture.Width, Offset.Y * _texture.Height),
-				renderTransform.Scale * pixelPerUnitScale,
-                SpriteEffects.None,
-                0f);
-
-			_spriteBatch.End();
-        }
     }
 }

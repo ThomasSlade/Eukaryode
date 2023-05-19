@@ -1,10 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Amino
 {
 	/// <summary> A game created with the Amino framework. Provides basic utilities and services which elaborate on the Monogame <see cref="Game"/>. </summary>
-	public class AminoGame : Game
+	public class AminoGame : Game, IGameServiceProvider, IViewServiceProvider
     {
 		/// <summary> The game's <see cref="GraphicsDeviceManager"/>. This is automatically injected into the template of a <see cref="Game"/> class. </summary>
 		private GraphicsDeviceManager _graphics;

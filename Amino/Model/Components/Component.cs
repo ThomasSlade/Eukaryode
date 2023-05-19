@@ -1,7 +1,7 @@
 ﻿namespace Amino
 {
 	/// <summary>The base class for all behaviour-driving components. Components define the behaviour of <see cref="Entity"/> instances.</summary>
-	public class Component
+	public abstract class Component
     {
 		/// <summary> The <see cref="Scene"/> in which this component exists. </summary>
 		public Scene World => _owner.World;
@@ -13,7 +13,7 @@
 		/// <summary> A flag signifying that this component has been destroyed. Components may only be destroyed once. </summary>
 		private bool _destroyed = false;
 
-        public Component(Entity owner)
+        protected Component(Entity owner)
         {
             _owner = owner;
 			_owner.RegisterComponent(this);

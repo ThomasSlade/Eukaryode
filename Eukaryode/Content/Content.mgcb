@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:banana.png
 
+#begin coloured_checkers.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:coloured_checkers.png
+
 #begin orange.png
 /importer:TextureImporter
 /processor:TextureProcessor

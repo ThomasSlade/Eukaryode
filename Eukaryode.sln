@@ -7,7 +7,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eukaryode", "Eukaryode\Euka
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amino", "Amino\Amino.csproj", "{E0FDEC76-F0CA-49B0-BBA6-805E9602258F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Amino.UnitTest", "Amino.UnitTest\Amino.UnitTest.csproj", "{D5A05541-5EC5-4F3C-B5D3-D64A1745066A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amino.UnitTest", "Amino.UnitTest\Amino.UnitTest.csproj", "{D5A05541-5EC5-4F3C-B5D3-D64A1745066A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eukaryode.UnitTest", "Eukaryode.UnitTest\Eukaryode.UnitTest.csproj", "{51B490B2-753F-439C-ABD6-373B5D95242D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D5A05541-5EC5-4F3C-B5D3-D64A1745066A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5A05541-5EC5-4F3C-B5D3-D64A1745066A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5A05541-5EC5-4F3C-B5D3-D64A1745066A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B490B2-753F-439C-ABD6-373B5D95242D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B490B2-753F-439C-ABD6-373B5D95242D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B490B2-753F-439C-ABD6-373B5D95242D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B490B2-753F-439C-ABD6-373B5D95242D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

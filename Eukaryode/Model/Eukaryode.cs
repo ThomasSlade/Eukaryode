@@ -23,13 +23,17 @@ namespace Eukaryode
             base.Initialize();
             _scene = new Scene(this);
 
+			SpriteComponent checkers = SpriteComponent.Create(new Entity(_scene), "coloured_checkers");
+			checkers.OffsetType = AnchorType.Centre;
+			checkers.PixelsPerUnit = 1f;
+
 			_mobilePineapple = new Entity(_scene);
-			new SpriteComponent(_mobilePineapple, "pineapple");
+			SpriteComponent.Create(_mobilePineapple, "pineapple");
 			_mobilePineapple.LocalScale = Vector2.One * 4f;
 			_mobilePineapple.LocalTranslation += Vector2.UnitY * 5f;
 
 			Entity otherPineapple = new Entity(_scene);
-			new SpriteComponent(otherPineapple, "pineapple");
+			SpriteComponent.Create(otherPineapple, "pineapple");
 			otherPineapple.LocalTranslation += Vector2.UnitY * 5f;
 		}
 
