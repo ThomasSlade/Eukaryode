@@ -27,16 +27,16 @@ namespace Amino
 		{
 			return value switch
 			{
-				AnchorType.BottomLeft => new Vector2(0f, 0f),
-				AnchorType.Bottom => new Vector2(0.5f, 0f),
-				AnchorType.BottomRight => new Vector2(1f, 0f),
+				AnchorType.BottomLeft => new Vector2(0f, 1f),
+				AnchorType.Bottom => new Vector2(0.5f, 1f),
+				AnchorType.BottomRight => new Vector2(1f, 1f),
 				AnchorType.Left => new Vector2(0f, 0.5f),
 				AnchorType.Centre => new Vector2(0.5f, 0.5f),
 				AnchorType.Right => new Vector2(1f, 0.5f),
-				AnchorType.TopLeft => new Vector2(0f, 1f),
-				AnchorType.Top => new Vector2(0.5f, 1f),
-				AnchorType.TopRight => new Vector2(1f, 1f),
-				AnchorType.Other => new Vector2(0f, 0f),
+				AnchorType.TopLeft => new Vector2(0f, 0f),
+				AnchorType.Top => new Vector2(0.5f, 0f),
+				AnchorType.TopRight => new Vector2(1f, 0f),
+				AnchorType.Other => new Vector2(0f, 1f),	// Bottom Left by default.
 				_ => throw new NotImplementedException($"A corresponding vector hasn't been defined for {nameof(AnchorType)} '{value}'")
 			};
 		}

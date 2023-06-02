@@ -1,0 +1,7 @@
+{
+	"Key": "ocean_surface",
+	"BiolayerType": "OceanSurface",
+	"LayerIndex": 10,
+	"SpriteKey": "terrain_blank",
+	"SpriteColor": "#191f8c"
+}

@@ -63,7 +63,7 @@ namespace Amino
 		protected List<Entity> _children = new List<Entity>();
 
 		/// <summary>The <see cref="Component"/>s of this entity.</summary>
-		public ReadOnlyDictionary<Type, Component> Components { get; private init; }
+		protected ReadOnlyDictionary<Type, Component> Components { get; private init; }
 		protected Dictionary<Type, Component> _components = new Dictionary<Type, Component>();
 
 		/// <summary> The global transform of this entity, containing its translation, rotation, and scale in world-space. </summary>
@@ -218,5 +218,41 @@ namespace Amino
 			}
 			_components.Remove(type);
 		}
+
+		/// <summary> Try getting a component of the specified type. </summary>
+		public bool TryGetComponent(Type type, out Component component)
+		{
+			component = null;
+			if (!type.IsAssignableTo(typeof(Component)))
+			{
+				throw new ArgumentException($"Must get component using a type that is assignable to {nameof(Component)}: Parameter type was '{type}'", nameof(type));
+			}
+			return Components.TryGetValue(type, out component);
+		}
+
+		/// <summary> Try getting a component of type <typeparamref name="T"/>. </summary>
+		public bool TryGetComponent<T>(out T component) where T : Component
+		{
+			component = null;
+			bool success = TryGetComponent(typeof(T), out Component uncasted);
+			if(success)
+			{
+				component = (T)uncasted;
+			}
+			return success;
+		}
+
+		/// <summary> Get a component of the specified type. </summary>
+		public Component GetComponent(Type type)
+		{
+			if(!TryGetComponent(type, out Component component))
+			{
+				throw new ArgumentException($"Entity '{this}' did not have a component of type '{type}'.");
+			}
+			return component;
+		}
+
+		/// <summary> Get a component of type <typeparamref name="T"/>. </summary>
+		public T GetComponent<T>() where T : Component => (T)GetComponent(typeof(T));
     }
 }

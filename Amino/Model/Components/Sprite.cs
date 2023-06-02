@@ -5,7 +5,7 @@ using System;
 namespace Amino
 {
 	/// <summary> A component which adds a rendered <see cref="Texture2D"/> sprite to its entity. </summary>
-	public class SpriteComponent : Component
+	public class Sprite : Component
     {
 		/// <summary> The key of the texture the sprite renders. </summary>
 		public string TextureKey => _textureKey;
@@ -32,7 +32,7 @@ namespace Amino
 		private Vector2 _pixelScale = Vector2.One;
 
 		/// <summary> The camera used to render the sprite. </summary>
-		protected CameraComponent Camera => Owner.World.Camera;
+		protected Camera Camera => Owner.World.Camera;
 
 		/// <summary> The color used to tint the sprite. </summary>
 		public Color Color { get; set; } = Color.White;
@@ -76,23 +76,23 @@ namespace Amino
 		//public Matrix3x3 RenderTransform => Camera.RenderTransform * Owner.Transform;
 
 		/// <summary>
-		/// Create a <see cref="SpriteComponent"/>.
+		/// Create a <see cref="Sprite"/>.
 		/// </summary>
 		/// <param name="textureKey">If unspecified, <see cref="Config.DefaultSprite"/> will be used.</param>
-		public static SpriteComponent Create(Entity owner, string? textureKey = null)
+		public static Sprite Create(Entity owner, string? textureKey = null)
 		{
-			SpriteComponent c = new SpriteComponent(owner, textureKey);
+			Sprite c = new Sprite(owner, textureKey);
 			owner.World.OnComponentCreated(c);
 			return c;
 		}
 
-		protected SpriteComponent(Entity owner, string? textureKey = null) : base(owner)
+		protected Sprite(Entity owner, string? textureKey = null) : base(owner)
         {
 			if(textureKey == null)
 			{
 				if (Config.DefaultSprite == null)
 				{
-					throw new InvalidOperationException($"Cannot call {nameof(SpriteComponent)} constructor with unspecified sprite key: Specify a default sprite in {nameof(Config.DefaultSprite)}.");
+					throw new InvalidOperationException($"Cannot call {nameof(Sprite)} constructor with unspecified sprite key: Specify a default sprite in {nameof(Config.DefaultSprite)}.");
 				}
 				textureKey = Config.DefaultSprite;
 			}

@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Amino.Services;
+using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,15 +22,19 @@ namespace Amino
 		public Action<GameTime> Updating { get; set; }
 		/// <summary> Fires each rendering update. </summary>
 		public Action<GameTime> Drawing { get; set; }
+		public new ContentService Content { get; set; }
 
-        public AminoGame()
+		public AminoGame()
         {
             _graphics = new GraphicsDeviceManager(this);
 			Keyboard = new KeyboardManager();
-
-			Content.RootDirectory = "Content";
+			Services.AddService<KeyboardManager>(Keyboard);
+			Content = new ContentService(base.Content, "Content");
+			
             IsMouseVisible = true;
         }
+
+		public T GetService<T>() where T : class => Services.GetService<T>();
 
 		protected override void Update(GameTime gameTime)
 		{

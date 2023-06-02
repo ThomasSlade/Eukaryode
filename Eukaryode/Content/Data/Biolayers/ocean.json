@@ -1,0 +1,8 @@
+{
+	"Key": "ocean",
+	"BiolayerType": "WaterColumn",
+	"LayerIndex": 9,
+	"OceanDepth": 0,
+	"SpriteKey": "terrain_blank",
+	"SpriteColor": "#191f8c"
+}

@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -9,19 +8,22 @@ namespace Amino
 	/// <summary> Renders visual components. </summary>
 	public class Renderer
 	{
+		/// <summary> The service provider for model services. </summary>
+		private IGameServiceProvider _game;
+
 		/// <summary> The service provider for the renderer. </summary>
 		private IViewServiceProvider _view;
 
 		/// <summary> The <see cref="GraphicsDevice"/> of the renderer. </summary>
 		public GraphicsDevice GraphicsDevice => _view.GraphicsDevice;
-		/// <summary> The <see cref="ContentManager"/> of the renderer. </summary>
-		public ContentManager Content => _view.Content;
+		/// <summary> The <see cref="ContentService"/> of the renderer. </summary>
+		public ContentService Content => _game.Content;
 
-		/// <summary> All <see cref="SpriteRenderer"/>s. There should be one for each <see cref="SpriteComponent"/>. </summary>
-		private Dictionary<SpriteComponent, SpriteRenderer> _spriteRenderers = new Dictionary<SpriteComponent, SpriteRenderer>();
+		/// <summary> All <see cref="SpriteRenderer"/>s. There should be one for each <see cref="Sprite"/>. </summary>
+		private Dictionary<Sprite, SpriteRenderer> _spriteRenderers = new Dictionary<Sprite, SpriteRenderer>();
 
 		/// <summary> The camera being rendered with. </summary>
-		public CameraComponent _camera;
+		public Camera _camera;
 
 		/// <summary>
 		/// The number of units-wide each pixel is, given the camera's zoom.
@@ -32,7 +34,7 @@ namespace Amino
 		/// The matrix used to convert the camera's coordiante system into the screen's pixel coordinate system.
 		/// This is used to make an increasing Y coordinate signify moving upwards on screen, rather than the default downwards.
 		/// </summary>
-		private Matrix3x3 _cameraScreenMatrix;
+		public Matrix3x3 _cameraScreenMatrix;
 		/// <summary>
 		/// In pixel-space, the position by which the camera should be offset relative to the position of its transform.
 		/// This is typically half of the screen width and screen height, negated, to bring the camera's transform into the centre of the screen.
@@ -43,7 +45,7 @@ namespace Amino
 		/// <summary>
 		/// The matrix by which to transform entities relative to the camera when rendering.
 		/// This is equal to the camera's world transform, scaled by <see cref="_cameraScaleMatrix"/>,
-		/// scaled again by  offset by <see cref="_cameraOffsetMatrix"/>,
+		/// offset by <see cref="_cameraOffsetMatrix"/>,
 		/// </summary>
 		/// <example>
 		/// To obtain an object's position and rotation in screenspace:
@@ -54,8 +56,9 @@ namespace Amino
 		/// </example>
 		public Matrix3x3 CameraRenderTransform { get; private set; }
 
-		public Renderer(IViewServiceProvider view, CameraComponent camera)
+		public Renderer(IGameServiceProvider game, IViewServiceProvider view, Camera camera)
 		{
+			_game = game;
 			_view = view;
 			_camera = camera;
 
@@ -87,7 +90,7 @@ namespace Amino
 		}
 
 		/// <summary> Add a sprite to be rendered. </summary>
-		public void RegisterSprite(SpriteComponent sprite)
+		public void RegisterSprite(Sprite sprite)
 		{
 			if (!_spriteRenderers.TryAdd(sprite, new SpriteRenderer(this, sprite)))
 			{
@@ -96,7 +99,7 @@ namespace Amino
 		}
 
 		/// <summary> Remove a sprite which should no longer be rendered. </summary>
-		public void UnregisterSprite(SpriteComponent sprite)
+		public void UnregisterSprite(Sprite sprite)
 		{
 			if (!_spriteRenderers.Remove(sprite))
 			{

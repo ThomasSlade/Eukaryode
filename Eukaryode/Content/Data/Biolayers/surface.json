@@ -1,0 +1,7 @@
+{
+	"Key": "surface",
+	"BiolayerType": "Surface",
+	"LayerIndex": 0,
+	"SpriteKey": "terrain_blank",
+	"SpriteColor": "#544336"
+}

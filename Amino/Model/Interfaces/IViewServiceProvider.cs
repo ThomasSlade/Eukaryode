@@ -12,7 +12,6 @@ namespace Amino
 	/// <summary> Signifies that a class can run the view of a <see cref="Scene"/>. </summary>
 	public interface IViewServiceProvider
 	{
-		public ContentManager Content { get; }
 		public GraphicsDevice GraphicsDevice { get; }
 		public Vector2 ViewportDimensions
 			=> new Vector2(GraphicsDevice.Viewport.Bounds.Width, GraphicsDevice.Viewport.Bounds.Height);

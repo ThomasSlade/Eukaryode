@@ -1,0 +1,7 @@
+{
+	"Key": "underground",
+	"BiolayerType": "Underground",
+	"LayerIndex": -10,
+	"SpriteKey": "terrain_blank",
+	"SpriteColor": "#1f1b17"
+}

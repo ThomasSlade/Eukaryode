@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Amino.Services;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,13 +9,10 @@ using System.Collections.Generic;
 namespace Amino
 {
 	/// <summary> A base 2D world, into which <see cref="Entity"/> instances can be placed. </summary>
-	public class Scene
+	public class Scene : IGameServiceProvider
     {
 		/// <summary> Provides services pertaining to the game's visual systems. May be left as null in the case of a model-only environment. </summary>
 		private IViewServiceProvider? _view;
-
-		/// <summary> The game <see cref="ContentManager"/>. </summary>
-		private ContentManager? Content => _view?.Content;
 
 		/// <summary> The game <see cref="GraphicsDevice"/>. </summary>
 		private GraphicsDevice? GraphicsDevice => _view?.GraphicsDevice;
@@ -25,14 +23,20 @@ namespace Amino
 		/// <summary> The game-application service provider. </summary>
 		private IGameServiceProvider _game;
 
+		/// <summary> The game <see cref="GameServiceContainer"/>, used to provide generic services. </summary>
+		public GameServiceContainer Services => _game.Services;
+
+		/// <summary> The game <see cref="ContentService"/>. </summary>
+		public ContentService Content => _game.Content;
+
 		/// <summary> The <see cref="KeyboardManager"/> used to track key states. </summary>
 		public KeyboardManager Keyboard => _game.Keyboard;
 
 		/// <summary> The <see cref="Camera"/> used to position the rendering of the game. </summary>
-		public CameraComponent Camera { get; private init; }
+		public Camera Camera { get; private init; }
 
 		/// <summary> Fires each game update. </summary>
-		public Action<GameTime>? Updating;
+		public Action<GameTime> Updating { get; set; }
 
 		public Scene(AminoGame game) : this(game, game)
 		{
@@ -50,14 +54,16 @@ namespace Amino
 			game.Updating += Update;
 
 			Entity cameraEntity = new Entity(this, "Camera");
-			Camera = CameraComponent.Create(cameraEntity);
+			Camera = Camera.Create(cameraEntity);
 
 			if (view != null)
 			{
 				_view = view;
-				Renderer = new Renderer(view, Camera);
+				Renderer = new Renderer(game, view, Camera);
 			}
 		}
+
+		public T GetService<T>() where T : class => Services.GetService<T>();
 
 		protected void Update(GameTime gameTime)
 		{
@@ -66,7 +72,7 @@ namespace Amino
 
 		public void OnComponentCreated(Component newComponent)
 		{
-			if (newComponent is SpriteComponent asSpriteComponent)
+			if (newComponent is Sprite asSpriteComponent)
 			{
 				Renderer?.RegisterSprite(asSpriteComponent);
 			}
@@ -74,7 +80,7 @@ namespace Amino
 
 		public void OnComponentDestroyed(Component destroyedComponent)
 		{
-			if (destroyedComponent is SpriteComponent asSpriteComponent)
+			if (destroyedComponent is Sprite asSpriteComponent)
 			{
 				Renderer?.UnregisterSprite(asSpriteComponent);
 			}

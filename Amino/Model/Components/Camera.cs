@@ -5,7 +5,7 @@ using System;
 namespace Amino
 {
 	/// <summary> A camera used to position the rendering viewport. </summary>
-	public class CameraComponent : Component
+	public class Camera : Component
 	{
 		/// <summary>
 		/// The zoom of the camera. This can be thought of as the number of spatial units wide the camera's view is.
@@ -35,14 +35,14 @@ namespace Amino
 		/// <summary> The speed at which the camera rolls. </summary>
 		public float RollSpeed { get; set; } = 100f;
 
-		public static CameraComponent Create(Entity owner)
+		public static Camera Create(Entity owner)
 		{
-			CameraComponent c = new CameraComponent(owner);
+			Camera c = new Camera(owner);
 			owner.World.OnComponentCreated(c);
 			return c;
 		}
 
-		protected CameraComponent(Entity owner) : base(owner)
+		protected Camera(Entity owner) : base(owner)
 		{
 			Zoom = Config.DefaultCameraZoom;
 			World.Updating += Update;
