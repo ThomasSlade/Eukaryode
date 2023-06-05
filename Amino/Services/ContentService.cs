@@ -2,40 +2,64 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Amino
 {
 	/// <summary>
-	/// An extended <see cref="ContentManager"/> in which all content is stored by name, rather than path.
+	/// An extended <see cref="ContentManager"/> which allows files under a specific folder to be considered resources,
+	/// in which case they can be loaded just by name rather than by specifying the entire directory.
 	/// </summary>
 	public class ContentService
 	{
+		/// <summary> The folder under which resources are defined in content. </summary>
+		private const string ResourcesFolder = "Resources";
+		private static string ResourcesDirectory;
 		private ContentManager _contentManager;
 
-		/// <summary> All asset paths in the content directory keyed by their filename (with the extension removed). </summary>
-		private Dictionary<string, string> _assetPaths = new Dictionary<string, string>();
+		/// <summary> All asset paths in the resource directory keyed by their filename (with the extension removed). </summary>
+		private Dictionary<string, string> _resourcePaths = new Dictionary<string, string>();
 
 		public ContentService(ContentManager contentManager, string rootDirectory)
 		{
 			_contentManager = contentManager;
 			_contentManager.RootDirectory = rootDirectory;
+			ResourcesDirectory = Path.Combine(rootDirectory, ResourcesFolder);
 			Init();
 		}
 
+		/// <summary> Finds all resources under the Resource folder and keys them by their filename. </summary>
 		protected virtual void Init()
 		{
-			foreach(string path in Directory.GetFiles(_contentManager.RootDirectory, "*.*", SearchOption.AllDirectories))
+			if (!Directory.Exists(ResourcesDirectory))
+			{
+				return;
+			}
+
+			// Get all the files in the root directory, and determine what their key would be.
+			// If these conflict with anything under the Resources folder, throw an error.
+			string[] filesInRootContent = Directory.GetFiles(_contentManager.RootDirectory, "*.*");
+			IEnumerable<string> filenames = filesInRootContent.ToList().Select(f => Path.GetFileName(Path.ChangeExtension(f, null)).ToLower());
+			HashSet<string> keysInRootContent = new HashSet<string>(filenames);
+
+			foreach (string path in Directory.GetFiles(ResourcesDirectory, "*.*", SearchOption.AllDirectories))
 			{
 				// Directory.GetFiles includes the root path in its result, so these strings are 'Content/Folder/SomeAsset.png'.
 				// We just want 'Folder/SomeAsset.png'
 				string relativePath = Path.GetRelativePath(_contentManager.RootDirectory, path);
 				string pathWithoutExtension = Path.ChangeExtension(relativePath, null);
 				string key = Path.GetFileName(pathWithoutExtension).ToLower();
-				if(_assetPaths.ContainsKey(key))
+
+				if(keysInRootContent.Contains(key))
 				{
-					throw new InvalidOperationException($"Cannot register content '{pathWithoutExtension}' because content '{_assetPaths[key]}' is already using its filename. All filemanes in the content directory must be unique.");
+					throw new InvalidOperationException($"Cannot register resource '{pathWithoutExtension}' because a file with this name is already present in the content directory.");
 				}
-				_assetPaths.Add(key, pathWithoutExtension);
+
+				if (_resourcePaths.ContainsKey(key))
+				{
+					throw new InvalidOperationException($"Cannot register resource '{pathWithoutExtension}' because resource '{_resourcePaths[key]}' is already using its filename. All filemanes in the folder '{ResourcesFolder}' must be unique.");
+				}
+				_resourcePaths.Add(key, pathWithoutExtension);
 			}
 		}
 
@@ -43,11 +67,11 @@ namespace Amino
 		public T Load<T>(string assetName)
 		{
 			assetName = assetName.ToLower();
-			if (!_assetPaths.TryGetValue(assetName, out string path))
+			if (!_resourcePaths.TryGetValue(assetName, out string path))
 			{
 				throw new ArgumentException($"Asset of name '{assetName}' was not present in this content manager.", nameof(assetName));
 			}
-			return _contentManager.Load<T>(_assetPaths[assetName]);
+			return _contentManager.Load<T>(_resourcePaths[assetName]);
 		}
 
 		/// <summary> Load all assets under the given directory. Assets must be loadable as type <see cref="T"/>. </summary>

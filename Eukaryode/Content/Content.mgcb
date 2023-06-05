@@ -14,37 +14,49 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Data/Biolayers/air.json
+#begin Maps/Earth/initial_height.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/Earth/initial_height.bmp
+
+#begin Resources/Data/Biolayers/air.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
-/build:Data/Biolayers/air.json
+/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/build:Resources/Data/Biolayers/air.json
 
-#begin Data/Biolayers/ocean_surface.json
+#begin Resources/Data/Biolayers/ocean_surface.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
-/build:Data/Biolayers/ocean_surface.json
+/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/build:Resources/Data/Biolayers/ocean_surface.json
 
-#begin Data/Biolayers/ocean.json
+#begin Resources/Data/Biolayers/ocean.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
-/build:Data/Biolayers/ocean.json
+/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/build:Resources/Data/Biolayers/ocean.json
 
-#begin Data/Biolayers/surface.json
+#begin Resources/Data/Biolayers/surface.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
-/build:Data/Biolayers/surface.json
+/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/build:Resources/Data/Biolayers/surface.json
 
-#begin Data/Biolayers/underground.json
+#begin Resources/Data/Biolayers/underground.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
-/build:Data/Biolayers/underground.json
+/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/build:Resources/Data/Biolayers/underground.json
 
-#begin Sprites/apple.png
+#begin Resources/Sprites/apple.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -54,9 +66,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/apple.png
+/build:Resources/Sprites/apple.png
 
-#begin Sprites/arrow_bl.png
+#begin Resources/Sprites/arrow_bl.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -66,9 +78,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/arrow_bl.png
+/build:Resources/Sprites/arrow_bl.png
 
-#begin Sprites/arrow_br.png
+#begin Resources/Sprites/arrow_br.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -78,9 +90,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/arrow_br.png
+/build:Resources/Sprites/arrow_br.png
 
-#begin Sprites/arrow_tl.png
+#begin Resources/Sprites/arrow_tl.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -90,9 +102,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/arrow_tl.png
+/build:Resources/Sprites/arrow_tl.png
 
-#begin Sprites/arrow_tr.png
+#begin Resources/Sprites/arrow_tr.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -102,9 +114,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/arrow_tr.png
+/build:Resources/Sprites/arrow_tr.png
 
-#begin Sprites/banana.png
+#begin Resources/Sprites/banana.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -114,9 +126,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/banana.png
+/build:Resources/Sprites/banana.png
 
-#begin Sprites/coloured_checkers.png
+#begin Resources/Sprites/coloured_checkers.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -126,9 +138,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/coloured_checkers.png
+/build:Resources/Sprites/coloured_checkers.png
 
-#begin Sprites/orange.png
+#begin Resources/Sprites/orange.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -138,9 +150,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/orange.png
+/build:Resources/Sprites/orange.png
 
-#begin Sprites/pineapple.png
+#begin Resources/Sprites/pineapple.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -150,9 +162,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/pineapple.png
+/build:Resources/Sprites/pineapple.png
 
-#begin Sprites/strawberry.png
+#begin Resources/Sprites/strawberry.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -162,9 +174,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/strawberry.png
+/build:Resources/Sprites/strawberry.png
 
-#begin Sprites/terrain_blank.png
+#begin Resources/Sprites/terrain_blank.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -174,9 +186,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/terrain_blank.png
+/build:Resources/Sprites/terrain_blank.png
 
-#begin Sprites/terrain_blank.png
+#begin Resources/Sprites/white_square.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -186,17 +198,5 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Sprites/terrain_blank.png
-
-#begin Sprites/white_square.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Sprites/white_square.png
+/build:Resources/Sprites/white_square.png
 
