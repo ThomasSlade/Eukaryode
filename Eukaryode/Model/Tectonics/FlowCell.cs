@@ -19,6 +19,13 @@ namespace Eukaryode.Tectonics
 		}
 		private FlowPoint _occupant;
 
+		/// <summary> The vector by which this cell's occupant will move. </summary>
+		public Vector2 Movement
+		{
+			get => _occupant.Movement;
+			set => _occupant.Movement = value;
+		}
+
 		/// <summary> The cells whose occupants are moving into this cell. </summary>
 		public HashSet<FlowCell> Incoming { get; private init; } = new HashSet<FlowCell>(2);
 
