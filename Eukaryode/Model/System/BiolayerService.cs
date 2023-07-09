@@ -30,7 +30,7 @@ namespace Eukaryode
 
 		public BiolayerService(IGameServiceProvider services)
 		{
-			_allBiolayers = services.Content.LoadAll<Biolayer>(ContentDirectory).ToArray();
+			_allBiolayers = services.Content.LoadAllResources<Biolayer>(ContentDirectory).ToArray();
 			HashSet<int> usedIndices = new HashSet<int>();
 			foreach(Biolayer biolayer in _allBiolayers)
 			{

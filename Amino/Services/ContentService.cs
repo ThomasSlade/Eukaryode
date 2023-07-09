@@ -63,22 +63,41 @@ namespace Amino
 			}
 		}
 
-		/// <summary> Load an asset of the given key, equal to the asset's filename (without the file extension). </summary>
-		public T Load<T>(string assetName)
+		/// <summary>
+		/// Load an asset by either its resource key or by its path within the Content directory.
+		/// </summary>
+		public T Load<T>(string keyOrPath)
 		{
-			assetName = assetName.ToLower();
-			if (!_resourcePaths.TryGetValue(assetName, out string path))
+			keyOrPath = keyOrPath.ToLower();
+			if (!_resourcePaths.TryGetValue(keyOrPath, out string path))
 			{
-				throw new ArgumentException($"Asset of name '{assetName}' was not present in this content manager.", nameof(assetName));
+				return _contentManager.Load<T>(keyOrPath);
 			}
-			return _contentManager.Load<T>(_resourcePaths[assetName]);
+			return _contentManager.Load<T>(path);
+		}
+
+		/// <summary>
+		/// Load an asset by either its resource key or by its path within the Content directory.
+		/// </summary>
+		public bool TryLoad<T>(string keyOrPath, out T value)
+		{
+			value = default;
+			try
+			{
+				value = Load<T>(keyOrPath);
+				return true;
+			}
+			catch(ContentLoadException e)
+			{
+				return false;
+			}
 		}
 
 		/// <summary> Load all assets under the given directory. Assets must be loadable as type <see cref="T"/>. </summary>
 		/// <param name="assetDirectory"> The content directory of the file. </param>
-		public List<T> LoadAll<T>(string assetDirectory)
+		public List<T> LoadAllResources<T>(string assetDirectory)
 		{
-			string[] directories = Directory.GetFiles(Path.Combine(_contentManager.RootDirectory, assetDirectory), "*.*");
+			string[] directories = Directory.GetFiles(Path.Combine(ResourcesDirectory, assetDirectory), "*.*");
 			List<T> loaded = new List<T>(directories.Length);
 			foreach(string path in directories)
 			{

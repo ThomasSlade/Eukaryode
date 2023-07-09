@@ -1,8 +1,5 @@
-﻿using Amino.Services;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Amino
 {
@@ -27,6 +24,8 @@ namespace Amino
 		public AminoGame()
         {
             _graphics = new GraphicsDeviceManager(this);
+			_graphics.PreferredBackBufferWidth = 1600;
+			_graphics.PreferredBackBufferHeight = 900;
 			Keyboard = new KeyboardManager();
 			Services.AddService<KeyboardManager>(Keyboard);
 			Content = new ContentService(base.Content, "Content");

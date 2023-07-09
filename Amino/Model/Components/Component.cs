@@ -1,4 +1,6 @@
-﻿namespace Amino
+﻿using Microsoft.Xna.Framework;
+
+namespace Amino
 {
 	/// <summary>The base class for all behaviour-driving components. Components define the behaviour of <see cref="Entity"/> instances.</summary>
 	public abstract class Component
@@ -17,7 +19,13 @@
         {
             _owner = owner;
 			_owner.RegisterComponent(this);
+			World.Updating += Update;
         }
+
+		protected virtual void Update(GameTime gameTime)
+		{
+
+		}
 
 		/// <summary> Destroy this component, removing it from its <see cref="Owner"/>. </summary>
 		public void Destroy()
@@ -28,6 +36,9 @@
 			}
 
 			_owner.UnregisterComponent(this);
+			World.OnComponentDestroyed(this);
+
+			World.Updating -= Update;
 
 			_destroyed = true;
 		}

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Amino
 {
 	/// <summary> Renders visual components. </summary>
-	public class Renderer
+	public class RenderService
 	{
 		/// <summary> The service provider for model services. </summary>
 		private IGameServiceProvider _game;
@@ -21,6 +21,13 @@ namespace Amino
 
 		/// <summary> All <see cref="SpriteRenderer"/>s. There should be one for each <see cref="Sprite"/>. </summary>
 		private Dictionary<Sprite, SpriteRenderer> _spriteRenderers = new Dictionary<Sprite, SpriteRenderer>();
+
+		/// <summary> The renderer used to support drawing debug geometry. </summary>
+		public DebugRenderer Debug => _debug;
+		private DebugRenderer _debug;
+
+		/// <summary> The main sprite batch. </summary>
+		private SpriteBatch _spriteBatch;
 
 		/// <summary> The camera being rendered with. </summary>
 		public Camera _camera;
@@ -54,9 +61,9 @@ namespace Amino
 		/// _spriteBatch.Draw(_texture, renderTransform.Translation, Color.White);
 		/// </code>
 		/// </example>
-		public Matrix3x3 CameraRenderTransform { get; private set; }
+		private Matrix3x3 CameraRenderTransform { get; set; }
 
-		public Renderer(IGameServiceProvider game, IViewServiceProvider view, Camera camera)
+		public RenderService(IGameServiceProvider game, IViewServiceProvider view, Camera camera)
 		{
 			_game = game;
 			_view = view;
@@ -71,6 +78,9 @@ namespace Amino
 			_cameraScreenMatrix = new Matrix3x3();
 			_cameraScreenMatrix.Scale *= new Vector2(1f, -1f);
 
+			_debug = new DebugRenderer(this);
+			_spriteBatch = new SpriteBatch(GraphicsDevice);
+
 			view.Drawing += Draw;
 		}
 
@@ -83,10 +93,16 @@ namespace Amino
 
 			CameraRenderTransform = (_camera.Owner.Transform * _cameraScaleMatrix * _cameraScreenMatrix * _cameraOffsetMatrix).GetInverse();
 
+			_spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
 			foreach (SpriteRenderer renderer in _spriteRenderers.Values)
 			{
-				renderer.Draw(gameTime);
+				renderer.Draw(gameTime, ref _spriteBatch, CameraRenderTransform);
 			}
+
+			_debug.Draw(gameTime, ref _spriteBatch, CameraRenderTransform);
+
+			_spriteBatch.End();
 		}
 
 		/// <summary> Add a sprite to be rendered. </summary>

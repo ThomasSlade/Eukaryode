@@ -95,7 +95,16 @@ namespace Eukaryode
 
 		private void AddLayer(string biolayerKey) => AddLayer(World.Content.Load<Biolayer>(biolayerKey));
 
-		private bool RemoveLayer(Biolayer biolayer) => _layers.Remove(biolayer);
+		private bool RemoveLayer(Biolayer biolayer)
+		{
+			if(!_layers.ContainsKey(biolayer))
+			{
+				return false;
+			}
+			_layers[biolayer].Owner.Destroy();
+			_layers.Remove(biolayer);
+			return true;
+		}
 
 		private void Submerge()
 		{

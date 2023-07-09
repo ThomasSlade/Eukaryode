@@ -1,10 +1,5 @@
 ﻿using Amino;
 using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Eukaryode
 {
@@ -41,6 +36,12 @@ namespace Eukaryode
 			}
 		}
 
+		public LayerCell this[int x, int y]
+		{
+			get => _cells[x, y];
+			set => _cells[x, y] = value;
+		}
+
 		public static LayerGrid Create(Entity owner, int width, int height)
 		{
 			LayerGrid c = new LayerGrid(owner, width, height);
@@ -62,15 +63,13 @@ namespace Eukaryode
 				Vector2 coord = new Vector2(x, y);
 				cellEntity.LocalTranslation = coord;
 				this[c] = LayerCell.Create(cellEntity);
-
-				this[c].SurfaceAltitude = MathF.Sin(Vector2.Distance(coord, new Vector2(Width / 2f, (Height / 2f))) * 0.5f) * 50f;
 			}
 		}
 
 		private void To2DIndex(int index, out int x, out int y)
 		{
-			y = index % Width;
-			x = index / Width;
+			x = index % Width;
+			y = index / Width;
 		}
 	}
 }

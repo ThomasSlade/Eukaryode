@@ -366,6 +366,14 @@ namespace Amino
 			return m;
 		}
 
+		/// <summary> Get a matrix that can be multiplied against to transform another matrix. </summary>
+		public static Matrix3x3 TranslationMatrix(Vector2 translation)
+		{
+			Matrix3x3 m = new Matrix3x3();
+			m.Translation = translation;
+			return m;
+		}
+
 		public static bool operator ==(Matrix3x3 a, Matrix3x3 b)
         {
             return a.Equals(b);

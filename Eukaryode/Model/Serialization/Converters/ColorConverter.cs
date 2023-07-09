@@ -6,7 +6,7 @@ using Amino;
 
 namespace Eukaryode.Serialization
 {
-	/// <summary> Allows the serialisation of a colour to its hexcode. </summary>
+	/// <summary> Allows the serialisation of a colour to its hexcode, or from a string of format "255, 255, 255" </summary>
 	public class ColorConverter : JsonConverter<Color>
 	{
 		public override Color ReadJson(JsonReader reader, Type objectType, Color existingValue, bool hasExistingValue, JsonSerializer serializer)

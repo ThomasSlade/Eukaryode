@@ -14,5 +14,7 @@
 		/// A value of zero risks the camera getting stuck at an infinitely small zoom.
 		/// </summary>
 		public const float MinimumCameraZoom = 0.01f;
+		/// <summary> The size of the root entity list within a scene upon its initialisation. </summary>
+		public const int RootEntityMemoryReservation = 64;
 	}
 }

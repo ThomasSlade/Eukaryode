@@ -1,8 +1,5 @@
-﻿using Amino.Services;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
 
@@ -18,7 +15,7 @@ namespace Amino
 		private GraphicsDevice? GraphicsDevice => _view?.GraphicsDevice;
 
 		/// <summary>The <see cref="Renderer"/> used to draw visual components.	</summary>
-		private Renderer? Renderer { get; init; }
+		private RenderService? Renderer { get; init; }
 
 		/// <summary> The game-application service provider. </summary>
 		private IGameServiceProvider _game;
@@ -34,6 +31,13 @@ namespace Amino
 
 		/// <summary> The <see cref="Camera"/> used to position the rendering of the game. </summary>
 		public Camera Camera { get; private init; }
+
+		/// <summary> All entities in the scene which have no parent entity. </summary>
+		public IReadOnlyList<Entity> RootEntities => _rootEntities;
+		private List<Entity> _rootEntities = new List<Entity>(Config.RootEntityMemoryReservation);
+
+		/// <summary> The current number of entities in this scene. </summary>
+		public int EntityCount { get; private set; }
 
 		/// <summary> Fires each game update. </summary>
 		public Action<GameTime> Updating { get; set; }
@@ -59,7 +63,7 @@ namespace Amino
 			if (view != null)
 			{
 				_view = view;
-				Renderer = new Renderer(game, view, Camera);
+				Renderer = new RenderService(game, view, Camera);
 			}
 		}
 
@@ -68,6 +72,41 @@ namespace Amino
 		protected void Update(GameTime gameTime)
 		{
 			Updating?.Invoke(gameTime);
+		}
+
+		public void OnEntityCreated(Entity newEntity, bool isRoot = false)
+		{
+			if(isRoot)
+			{
+				OnEntityRooted(newEntity);
+			}
+			EntityCount++;
+		}
+
+		public void OnEntityDestroyed(Entity destroyedEntity, bool isRoot = false)
+		{
+			if (isRoot && !_rootEntities.Remove(destroyedEntity))
+			{
+				throw new InvalidOperationException($"Entity '{destroyedEntity}' was reported as destroyed root-entity to the scene, but was not in the root-entities collection.");
+			}
+			if (EntityCount == 0)
+			{
+				throw new InvalidOperationException($"Entity '{destroyedEntity}' was reported as destroyed root-entity to the scene, yet the entity count is zero. Is the entity count incorrect?");
+			}
+			EntityCount--;
+		}
+
+		public void OnEntityRooted(Entity rootEntity)
+		{
+			_rootEntities.Add(rootEntity);
+		}
+
+		public void OnEntityUnrooted(Entity rootEntity)
+		{
+			if(!_rootEntities.Remove(rootEntity))
+			{
+				throw new InvalidOperationException($"Entity '{rootEntity}' was reported as no longer being a root-entity to the scene, but was not in the root-entities collection.");
+			}
 		}
 
 		public void OnComponentCreated(Component newComponent)
@@ -85,5 +124,7 @@ namespace Amino
 				Renderer?.UnregisterSprite(asSpriteComponent);
 			}
 		}
+
+		public void DebugDraw(IDebugRenderRequest order) => Renderer?.Debug.Order(order);
 	}
 }

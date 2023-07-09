@@ -24,7 +24,18 @@ namespace Amino
 		private string _name = "Entity";
 
 		/// <summary>The <see cref="Scene"/> to which this entity belongs.</summary>
-		public Scene World { get => _world; }
+		public Scene World
+		{
+			get => _world;
+			set
+			{
+				if(_world != null)
+				{
+					throw new InvalidOperationException($"Entity '{this}' had its scene set more than once.");
+				}
+				_world = value;
+			}
+		}
         private Scene _world;
 
         /// <summary>The <see cref="Entity"/> under which this entity exists in the hierarchy.</summary>
@@ -48,12 +59,22 @@ namespace Amino
 					_parent.UnregisterChild(this);
                 }
 
-                _parent = value;
+				Entity? oldParent = _parent;
+
+				_parent = value;
 
                 if(_parent != null)
                 {
 					_parent.RegisterChild(this);
+					if(oldParent != null)
+					{
+						World.OnEntityUnrooted(this);
+					}
                 }
+				else
+				{
+					World.OnEntityRooted(this);
+				}
             }
         }
         private Entity? _parent;
@@ -134,6 +155,9 @@ namespace Amino
 			}
 		}
 
+		/// <summary> A flag signifying that this entity has been destroyed. Entities may only be destroyed once. </summary>
+		private bool _destroyed = false;
+
 		/// <summary> Fires when this entity's transform changes. </summary>
 		public event EventHandler TransformChanged
 		{
@@ -152,13 +176,15 @@ namespace Amino
 
         protected Entity(Scene world, Entity? parent, string? name = null) : base()
         {
-            _world = world;
-            Parent = parent;
+            World = world;
+			Parent = parent;
 			Name = name == null ? "Entity" : name;
 
 			Children = new ReadOnlyCollection<Entity>(_children);
 			Components = new ReadOnlyDictionary<Type, Component>(_components);
-        }
+
+			World.OnEntityCreated(this, Parent == null);
+		}
 
 		public Entity(Scene scene, string? name = null) : this(scene, null, name)
         {
@@ -254,5 +280,31 @@ namespace Amino
 
 		/// <summary> Get a component of type <typeparamref name="T"/>. </summary>
 		public T GetComponent<T>() where T : Component => (T)GetComponent(typeof(T));
-    }
+
+		/// <summary> Destroy this entity, removing it from the scene hierarchy, as well as its children and components. </summary>
+		public void Destroy()
+		{
+			if(_destroyed)
+			{
+				return;
+			}
+
+			for (int c = _children.Count - 1; c >= 0; c--)
+			{
+				_children[c].Destroy();
+			}
+
+			foreach (Component component in _components.Values)
+			{
+				component.Destroy();
+			}
+
+			Parent = null;
+			World.OnEntityDestroyed(this, true);	// Will always be rooted during destruction as the parent is set to null.
+
+			_transformChanged = null;
+
+			_destroyed = true;
+		}
+	}
 }

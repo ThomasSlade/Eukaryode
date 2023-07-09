@@ -14,7 +14,7 @@
 
 #---------------------------------- Content ---------------------------------#
 
-#begin Maps/Earth/initial_height.bmp
+#begin Maps/Earth/heightmap_0.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -24,36 +24,132 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Maps/Earth/initial_height.bmp
+/build:Maps/Earth/heightmap_0.bmp
+
+#begin Maps/Earth/heightmap_1.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/Earth/heightmap_1.bmp
+
+#begin Maps/Earth/tectonic_0.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/Earth/tectonic_0.bmp
+
+#begin Maps/Earth/tectonic_1.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/Earth/tectonic_1.bmp
+
+#begin Maps/Earth/tectonic_data.json
+/importer:JsonContentImporter
+/processor:JsonContentProcessor
+/processorParam:ContentType=Eukaryode.Serialization.TectonicDataReader, Eukaryode
+/build:Maps/Earth/tectonic_data.json
+
+#begin Maps/TestWorld/heightmap_0.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/TestWorld/heightmap_0.bmp
+
+#begin Maps/TestWorld/heightmap_1.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/TestWorld/heightmap_1.bmp
+
+#begin Maps/TestWorld/tectonic_0.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/TestWorld/tectonic_0.bmp
+
+#begin Maps/TestWorld/tectonic_1.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Maps/TestWorld/tectonic_1.bmp
+
+#begin Maps/TestWorld/tectonic_data.json
+/importer:JsonContentImporter
+/processor:JsonContentProcessor
+/processorParam:ContentType=Eukaryode.Serialization.TectonicDataReader, Eukaryode
+/build:Maps/TestWorld/tectonic_data.json
 
 #begin Resources/Data/Biolayers/air.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
 /build:Resources/Data/Biolayers/air.json
 
 #begin Resources/Data/Biolayers/ocean_surface.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
 /build:Resources/Data/Biolayers/ocean_surface.json
 
 #begin Resources/Data/Biolayers/ocean.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
 /build:Resources/Data/Biolayers/ocean.json
 
 #begin Resources/Data/Biolayers/surface.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
 /build:Resources/Data/Biolayers/surface.json
 
 #begin Resources/Data/Biolayers/underground.json
 /importer:JsonContentImporter
 /processor:JsonContentProcessor
-/processorParam:ContentType=Eukaryode.Biolayer, Eukaryode
+/processorParam:ContentType=Eukaryode.Serialization.BiolayerReader, Eukaryode
 /build:Resources/Data/Biolayers/underground.json
 
 #begin Resources/Sprites/apple.png

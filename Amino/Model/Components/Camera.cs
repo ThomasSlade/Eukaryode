@@ -45,10 +45,9 @@ namespace Amino
 		protected Camera(Entity owner) : base(owner)
 		{
 			Zoom = Config.DefaultCameraZoom;
-			World.Updating += Update;
 		}
 
-		public void Update(GameTime gameTime)
+		protected override void Update(GameTime gameTime)
 		{
 			if (World.Keyboard.IsKeyDown(Keys.OemMinus))
 			{
