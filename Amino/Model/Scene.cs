@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using ImGuiNET;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace Amino
 
 		/// <summary> The game-application service provider. </summary>
 		private IGameServiceProvider _game;
+		public bool IsActive => _game.IsActive;
 
 		/// <summary> The game <see cref="GameServiceContainer"/>, used to provide generic services. </summary>
 		public GameServiceContainer Services => _game.Services;
@@ -42,6 +44,9 @@ namespace Amino
 		/// <summary> Fires each game update. </summary>
 		public Action<GameTime> Updating { get; set; }
 
+		/// <summary> Fires when creating the Imgui interface. </summary>
+		public Action<GameTime> ImGuiUpdating { get; set; }
+
 		public Scene(AminoGame game) : this(game, game)
 		{
 
@@ -56,6 +61,7 @@ namespace Amino
         {
 			_game = game;
 			game.Updating += Update;
+			game.ImGuiUpdating += ImGui;
 
 			Entity cameraEntity = new Entity(this, "Camera");
 			Camera = Camera.Create(cameraEntity);
@@ -65,6 +71,8 @@ namespace Amino
 				_view = view;
 				Renderer = new RenderService(game, view, Camera);
 			}
+
+			
 		}
 
 		public T GetService<T>() where T : class => Services.GetService<T>();
@@ -73,6 +81,15 @@ namespace Amino
 		{
 			Updating?.Invoke(gameTime);
 		}
+
+		private bool _checkbox = false;
+
+		protected void ImGui(GameTime gameTime)
+		{
+			
+		}
+
+		
 
 		public void OnEntityCreated(Entity newEntity, bool isRoot = false)
 		{
@@ -125,6 +142,7 @@ namespace Amino
 			}
 		}
 
+		/// <summary> Draw a debug geometry for a single frame. </summary>
 		public void DebugDraw(IDebugRenderRequest order) => Renderer?.Debug.Order(order);
 	}
 }

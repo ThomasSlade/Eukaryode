@@ -1,4 +1,6 @@
-﻿namespace Amino
+﻿using Microsoft.Xna.Framework.Input;
+
+namespace Amino
 {
 	/// <summary> Configurations driving the behaviour of an <see cref="AminoGame"/> and its entities. </summary>
 	public static class Config
@@ -16,5 +18,9 @@
 		public const float MinimumCameraZoom = 0.01f;
 		/// <summary> The size of the root entity list within a scene upon its initialisation. </summary>
 		public const int RootEntityMemoryReservation = 64;
+		/// <summary> The key used to toggle the display of immediate GUI. </summary>
+		public const Keys ImGuiKey = Keys.F5;
+		/// <summary> The speed at which ImGui scrolls with the scroll wheel. </summary>
+		public const float ImGuiScrollWheelSpeed = 120;
 	}
 }

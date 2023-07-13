@@ -11,8 +11,10 @@ namespace Amino
 		public new ContentService Content { get; private set; }
 		public KeyboardManager Keyboard { get; private set; }
 
+		public bool IsActive => true;
+
 		public Action<GameTime> Updating { get; set; }
-		public Action<GameTime> Drawing { get; set; }
+		public Action<GameTime> ImGuiUpdating { get; set; }
 
 		public DummyGame()
 		{

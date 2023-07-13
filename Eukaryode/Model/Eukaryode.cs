@@ -40,7 +40,6 @@ namespace Eukaryode
 
 			testBerry = new Entity(_scene);
 			Sprite.Create(testBerry, "strawberry");
-			testBerry.LocalTranslation = new Vector2(36, 27);
 		}
 
         protected override void Update(GameTime gameTime)
@@ -52,7 +51,7 @@ namespace Eukaryode
 
 			if(Keyboard.IsKeyPressed(Keys.P))
 			{
-				_tectonicWorld.TectonicTick(0.25f);
+				_tectonicWorld.TectonicTick(0.1f);
 			}
 
 			float y = Keyboard.IsKeyDown(Keys.I) ? 1f : 0f;

@@ -13,8 +13,11 @@ namespace Amino
 	public interface IViewServiceProvider
 	{
 		public GraphicsDevice GraphicsDevice { get; }
-		public Vector2 ViewportDimensions
-			=> new Vector2(GraphicsDevice.Viewport.Bounds.Width, GraphicsDevice.Viewport.Bounds.Height);
+
+		public GameWindow Window { get; }
+
+		public Vector2Int ViewportDimensions
+			=> new Vector2Int(GraphicsDevice.Viewport.Bounds.Width, GraphicsDevice.Viewport.Bounds.Height);
 
 		public Action<GameTime> Drawing { get; set; }
 	}

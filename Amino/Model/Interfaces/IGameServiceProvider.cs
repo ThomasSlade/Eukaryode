@@ -11,6 +11,10 @@ namespace Amino
 		public ContentService Content { get; }
 		public KeyboardManager Keyboard { get; }
 
+		/// <summary> Indicates if the game application is focused. </summary>
+		public bool IsActive { get; }
+
 		public Action<GameTime> Updating { get; set; }
+		public Action<GameTime> ImGuiUpdating { get; set; }
 	}
 }
