@@ -50,7 +50,7 @@ namespace Amino
 				string pathWithoutExtension = Path.ChangeExtension(relativePath, null);
 				string key = Path.GetFileName(pathWithoutExtension).ToLower();
 
-				if(keysInRootContent.Contains(key))
+				if (keysInRootContent.Contains(key))
 				{
 					throw new InvalidOperationException($"Cannot register resource '{pathWithoutExtension}' because a file with this name is already present in the content directory.");
 				}
@@ -87,7 +87,7 @@ namespace Amino
 				value = Load<T>(keyOrPath);
 				return true;
 			}
-			catch(ContentLoadException e)
+			catch (ContentLoadException e)
 			{
 				return false;
 			}
@@ -99,7 +99,7 @@ namespace Amino
 		{
 			string[] directories = Directory.GetFiles(Path.Combine(ResourcesDirectory, assetDirectory), "*.*");
 			List<T> loaded = new List<T>(directories.Length);
-			foreach(string path in directories)
+			foreach (string path in directories)
 			{
 				string relativePath = Path.GetRelativePath(_contentManager.RootDirectory, path);
 				loaded.Add(_contentManager.Load<T>(Path.ChangeExtension(relativePath, null)));

@@ -168,7 +168,7 @@ namespace Amino
 				Vector2 currentScale = Scale;
 				bool recalculateCurrentScale = false;
 
-				if(value.X != 0 && currentScale.X == 0)
+				if (value.X != 0 && currentScale.X == 0)
 				{
 					if (currentScale.Y != 0)
 					{
@@ -183,7 +183,7 @@ namespace Amino
 					recalculateCurrentScale = true;
 				}
 
-				if(value.Y != 0 && currentScale.Y == 0)
+				if (value.Y != 0 && currentScale.Y == 0)
 				{
 					Up = Right.Perpendicular(false) * 0.001f;
 					recalculateCurrentScale = true;
@@ -227,7 +227,7 @@ namespace Amino
 			this = Identity;
 		}
 
-		public Matrix3x3(float m11, float m12, float m13, float m21, float m22, float m23, float m31, float m32, float m33)  : this()
+		public Matrix3x3(float m11, float m12, float m13, float m21, float m22, float m23, float m31, float m32, float m33) : this()
 		{
 			M11 = m11;
 			M12 = m12;
@@ -340,18 +340,18 @@ namespace Amino
 			);
 		}
 
-        public bool Equals(Matrix3x3 other)
-        {
-            return M11 == other.M11
-                && M12 == other.M12
-                && M13 == other.M13
-                && M21 == other.M21
-                && M22 == other.M22
-                && M23 == other.M23
-                && M31 == other.M31
-                && M32 == other.M32
-                && M33 == other.M33;
-        }
+		public bool Equals(Matrix3x3 other)
+		{
+			return M11 == other.M11
+				&& M12 == other.M12
+				&& M13 == other.M13
+				&& M21 == other.M21
+				&& M22 == other.M22
+				&& M23 == other.M23
+				&& M31 == other.M31
+				&& M32 == other.M32
+				&& M33 == other.M33;
+		}
 
 		public override bool Equals([NotNullWhen(true)] object? obj)
 			=> obj is Matrix3x3 otherMatrix ? Equals(otherMatrix) : false;
@@ -375,44 +375,44 @@ namespace Amino
 		}
 
 		public static bool operator ==(Matrix3x3 a, Matrix3x3 b)
-        {
-            return a.Equals(b);
-        }
+		{
+			return a.Equals(b);
+		}
 
-        public static bool operator !=(Matrix3x3 a, Matrix3x3 b)
-        {
-            return !a.Equals(b);
-        }
+		public static bool operator !=(Matrix3x3 a, Matrix3x3 b)
+		{
+			return !a.Equals(b);
+		}
 
-        public static Matrix3x3 operator *(Matrix3x3 a, Matrix3x3 b)
-        {
-            // First row.
-            float p11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
-            float p12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
-            float p13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
+		public static Matrix3x3 operator *(Matrix3x3 a, Matrix3x3 b)
+		{
+			// First row.
+			float p11 = a.M11 * b.M11 + a.M12 * b.M21 + a.M13 * b.M31;
+			float p12 = a.M11 * b.M12 + a.M12 * b.M22 + a.M13 * b.M32;
+			float p13 = a.M11 * b.M13 + a.M12 * b.M23 + a.M13 * b.M33;
 
-            // Second row.
-            float p21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
-            float p22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
-            float p23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
+			// Second row.
+			float p21 = a.M21 * b.M11 + a.M22 * b.M21 + a.M23 * b.M31;
+			float p22 = a.M21 * b.M12 + a.M22 * b.M22 + a.M23 * b.M32;
+			float p23 = a.M21 * b.M13 + a.M22 * b.M23 + a.M23 * b.M33;
 
-            // Third row.
-            float p31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
-            float p32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
-            float p33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
+			// Third row.
+			float p31 = a.M31 * b.M11 + a.M32 * b.M21 + a.M33 * b.M31;
+			float p32 = a.M31 * b.M12 + a.M32 * b.M22 + a.M33 * b.M32;
+			float p33 = a.M31 * b.M13 + a.M32 * b.M23 + a.M33 * b.M33;
 
-            a.M11 = p11;
-            a.M12 = p12;
-            a.M13 = p13;
-            a.M21 = p21;
-            a.M22 = p22;
-            a.M23 = p23;
-            a.M31 = p31;
+			a.M11 = p11;
+			a.M12 = p12;
+			a.M13 = p13;
+			a.M21 = p21;
+			a.M22 = p22;
+			a.M23 = p23;
+			a.M31 = p31;
 			a.M32 = p32;
 			a.M33 = p33;
 
 			return a;
-        }
+		}
 
 		public static Matrix3x3 operator *(Matrix3x3 matrix, float scalar)
 		{
@@ -466,7 +466,7 @@ namespace Amino
 			return a;
 		}
 
-		public static Matrix3x3 operator-(Matrix3x3 matrix)
+		public static Matrix3x3 operator -(Matrix3x3 matrix)
 		{
 			matrix.M11 = -matrix.M11;
 			matrix.M12 = -matrix.M12;

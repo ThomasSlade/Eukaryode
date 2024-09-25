@@ -31,7 +31,7 @@ namespace Amino
 		public static Vector3 CartesianToBarycentric(Vector2 triA, Vector2 triB, Vector2 triC, Vector2 cartesian)
 		{
 			float triArea = GetTriangleArea(triA, triB, triC);
-			if(triArea < 0f)
+			if (triArea < 0f)
 			{
 				throw new ArgumentException($"Triangle area was found to be a negative number. The triangle points provided must be in counter-clockwise order.");
 			}

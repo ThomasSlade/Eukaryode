@@ -37,7 +37,7 @@ namespace Amino
 
 		public EarClipper(IList<Vector2> polygon)
 		{
-			if(polygon.Count < 3)
+			if (polygon.Count < 3)
 			{
 				throw new ArgumentException($"Cannot triangulate a polygon that has vertex count ('{polygon.Count}') of less than 3.");
 			}
@@ -66,7 +66,7 @@ namespace Amino
 
 			// Start by determining all convexes, concaves, and ears.
 			LinkedListNode<int> currentNode = _clippedPolygon.First;
-			while(currentNode != null)
+			while (currentNode != null)
 			{
 				UpdateNodeStatus(currentNode);
 				currentNode = currentNode.Next;
@@ -74,7 +74,7 @@ namespace Amino
 
 			Clip(_ears.First());
 
-			if(_triangles.Count != _expectedTriCount)
+			if (_triangles.Count != _expectedTriCount)
 			{
 				throw new InvalidOperationException($"After triangulation, polygon with vertex count '{_originalPolygon.Count}' was expected to have {_expectedTriCount} registered triangle verts, but instead had '{_triangles.Count}'. This means the algorithm has not worked.");
 			}
@@ -102,7 +102,7 @@ namespace Amino
 			UpdateNodeStatus(earStartNode);
 			UpdateNodeStatus(earEndNode);
 
-			if(_remainingVertCount == 3)
+			if (_remainingVertCount == 3)
 			{
 				_triangles.AddRange(_clippedPolygon);
 				return;
@@ -117,7 +117,7 @@ namespace Amino
 			if (IsConvex(vertexNode))
 			{
 				_concave.Remove(vertexNode.Value);
-				if(TriangleContainsPoints(vertexNode))
+				if (TriangleContainsPoints(vertexNode))
 				{
 					_ears.Remove(vertexNode);
 				}
@@ -152,9 +152,9 @@ namespace Amino
 			int b = vertexNode.Value;
 			int c = next.Value;
 
-			foreach(int concave in _concave)
+			foreach (int concave in _concave)
 			{
-				if(concave == a || concave == b || concave == c)
+				if (concave == a || concave == b || concave == c)
 				{
 					continue;
 				}

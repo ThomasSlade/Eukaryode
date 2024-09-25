@@ -18,7 +18,7 @@ namespace Eukaryode
 			get => _surfaceAltitude;
 			set
 			{
-				if(value == _surfaceAltitude)
+				if (value == _surfaceAltitude)
 				{
 					return;
 				}
@@ -35,11 +35,11 @@ namespace Eukaryode
 			get => _submerged;
 			private set
 			{
-				if(value == _submerged)
+				if (value == _submerged)
 				{
 					return;
 				}
-				if(value)
+				if (value)
 				{
 					Submerge();
 				}
@@ -97,7 +97,7 @@ namespace Eukaryode
 
 		private bool RemoveLayer(Biolayer biolayer)
 		{
-			if(!_layers.ContainsKey(biolayer))
+			if (!_layers.ContainsKey(biolayer))
 			{
 				return false;
 			}
@@ -111,7 +111,7 @@ namespace Eukaryode
 			AddLayer(_biolayerService.OceanSurface);
 			foreach (Biolayer waterColumn in _biolayerService.AllWaterColumns)
 			{
-				if(waterColumn.OceanDepth > SurfaceAltitude)
+				if (waterColumn.OceanDepth > SurfaceAltitude)
 				{
 					break;
 				}

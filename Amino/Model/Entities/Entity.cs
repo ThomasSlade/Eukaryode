@@ -7,14 +7,14 @@ namespace Amino
 {
 	/// <summary> A positionable game object, to which <see cref="Component"/>s can be attached to provide behaviour. </summary>
 	public class Entity
-    {
+	{
 		/// <summary> A legible name for the entity. This doesn't have to be unique. </summary>
 		public string Name
 		{
 			get => _name;
 			set
 			{
-				if(value == null)
+				if (value == null)
 				{
 					value = string.Empty;
 				}
@@ -29,55 +29,55 @@ namespace Amino
 			get => _world;
 			set
 			{
-				if(_world != null)
+				if (_world != null)
 				{
 					throw new InvalidOperationException($"Entity '{this}' had its scene set more than once.");
 				}
 				_world = value;
 			}
 		}
-        private Scene _world;
+		private Scene _world;
 
-        /// <summary>The <see cref="Entity"/> under which this entity exists in the hierarchy.</summary>
-        public Entity? Parent
-        {
-            get => _parent;
-            set
-            {
-                if(value == _parent)
-                {
-                    return;
-                }
+		/// <summary>The <see cref="Entity"/> under which this entity exists in the hierarchy.</summary>
+		public Entity? Parent
+		{
+			get => _parent;
+			set
+			{
+				if (value == _parent)
+				{
+					return;
+				}
 
-                if(value != null && value.World != World)
-                {
-                    throw new ArgumentException($"Cannot set parent of '{this}' to '{value}' because they are not in the same scene.");
-                }
+				if (value != null && value.World != World)
+				{
+					throw new ArgumentException($"Cannot set parent of '{this}' to '{value}' because they are not in the same scene.");
+				}
 
-                if(_parent != null)
-                {
+				if (_parent != null)
+				{
 					_parent.UnregisterChild(this);
-                }
+				}
 
 				Entity? oldParent = _parent;
 
 				_parent = value;
 
-                if(_parent != null)
-                {
+				if (_parent != null)
+				{
 					_parent.RegisterChild(this);
-					if(oldParent != null)
+					if (oldParent != null)
 					{
 						World.OnEntityUnrooted(this);
 					}
-                }
+				}
 				else
 				{
 					World.OnEntityRooted(this);
 				}
-            }
-        }
-        private Entity? _parent;
+			}
+		}
+		private Entity? _parent;
 
 		/// <summary>The child <see cref="Entity"/> objects of this entity.</summary>
 		public ReadOnlyCollection<Entity> Children { get; private init; }
@@ -110,7 +110,7 @@ namespace Amino
 			get => _localTransform.RelativeTranslation;
 			set
 			{
-				if(value == _localTransform.RelativeTranslation)
+				if (value == _localTransform.RelativeTranslation)
 				{
 					return;
 				}
@@ -174,9 +174,9 @@ namespace Amino
 		}
 		private event EventHandler _transformChanged;
 
-        protected Entity(Scene world, Entity? parent, string? name = null) : base()
-        {
-            World = world;
+		protected Entity(Scene world, Entity? parent, string? name = null) : base()
+		{
+			World = world;
 			Parent = parent;
 			Name = name == null ? "Entity" : name;
 
@@ -187,19 +187,19 @@ namespace Amino
 		}
 
 		public Entity(Scene scene, string? name = null) : this(scene, null, name)
-        {
+		{
 
-        }
+		}
 
-        public Entity(Entity parent, string? name = null) : this(parent.World, parent, name)
-        {
+		public Entity(Entity parent, string? name = null) : this(parent.World, parent, name)
+		{
 
-        }
+		}
 
 		/// <summary> Add a child to this entity, presuming that the child already has this entity as its parent. </summary>
 		internal void RegisterChild(Entity child)
 		{
-			if(child.Parent != this)
+			if (child.Parent != this)
 			{
 				throw new InvalidOperationException($"Cannot register '{child}' as a child of '{this}' because the child's parent ('{child.Parent}') does not equal this entity.");
 			}
@@ -209,7 +209,7 @@ namespace Amino
 		/// <summary> Remove a child from this entity, presuming that the child actually belongs to this entity. </summary>
 		internal void UnregisterChild(Entity child)
 		{
-			if(!_children.Remove(child))
+			if (!_children.Remove(child))
 			{
 				throw new InvalidOperationException($"Cannot unregister child entity '{child}' from parent '{this}': That child was not present on this entity.");
 			}
@@ -224,7 +224,7 @@ namespace Amino
 				throw new InvalidOperationException($"Cannot register '{component}' as a component of '{this}' because the component's owner ('{component.Owner}') does not equal this entity.");
 			}
 			Type type = component.GetType();
-			if(!_components.TryAdd(type, component))
+			if (!_components.TryAdd(type, component))
 			{
 				throw new InvalidOperationException($"Cannot register component '{component}' of type '{type}': a component of this type ({_components[type]}) is already present on this entity.");
 			}
@@ -261,7 +261,7 @@ namespace Amino
 		{
 			component = null;
 			bool success = TryGetComponent(typeof(T), out Component uncasted);
-			if(success)
+			if (success)
 			{
 				component = (T)uncasted;
 			}
@@ -271,7 +271,7 @@ namespace Amino
 		/// <summary> Get a component of the specified type. </summary>
 		public Component GetComponent(Type type)
 		{
-			if(!TryGetComponent(type, out Component component))
+			if (!TryGetComponent(type, out Component component))
 			{
 				throw new ArgumentException($"Entity '{this}' did not have a component of type '{type}'.");
 			}
@@ -284,7 +284,7 @@ namespace Amino
 		/// <summary> Destroy this entity, removing it from the scene hierarchy, as well as its children and components. </summary>
 		public void Destroy()
 		{
-			if(_destroyed)
+			if (_destroyed)
 			{
 				return;
 			}
@@ -300,7 +300,7 @@ namespace Amino
 			}
 
 			Parent = null;
-			World.OnEntityDestroyed(this, true);	// Will always be rooted during destruction as the parent is set to null.
+			World.OnEntityDestroyed(this, true);    // Will always be rooted during destruction as the parent is set to null.
 
 			_transformChanged = null;
 

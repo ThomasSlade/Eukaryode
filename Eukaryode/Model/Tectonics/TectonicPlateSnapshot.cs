@@ -3,13 +3,12 @@ using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 
 namespace Eukaryode.Tectonics
 {
 	/// <summary> An individual plate within <see cref="TectonicSnapshot"/>, which is defined by a set of positions on the map (vertices). </summary>
 	public class TectonicPlateSnapshot : IComparable<TectonicPlateSnapshot>
-    {
+	{
 		public string Name { get; init; }
 
 		public Color DebugColor { get; init; }
@@ -76,13 +75,13 @@ namespace Eukaryode.Tectonics
 				PlateTriangle currentTri = Triangles[t];
 				float dist = MathUtils.DistanceFromTriangle(currentTri.A.Position, currentTri.B.Position, currentTri.C.Position, point);
 
-				if(dist <= 0f)
+				if (dist <= 0f)
 				{
 					tri = currentTri;
 					return;
 				}
 
-				if(dist < shortestDist)
+				if (dist < shortestDist)
 				{
 					shortestDist = dist;
 					tri = currentTri;

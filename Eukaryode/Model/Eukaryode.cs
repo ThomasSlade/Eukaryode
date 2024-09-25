@@ -1,14 +1,12 @@
 ﻿using Amino;
-using Eukaryode.Tectonics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using System.Linq;
 
 namespace Eukaryode
 {
 	/// <summary> The application class for Eukaryode. </summary>
 	public class Eukaryode : AminoGame
-    {
+	{
 		/// <summary> The main game scene. </summary>
 		private Scene _scene;
 
@@ -17,15 +15,15 @@ namespace Eukaryode
 		Entity testBerry;
 
 		public Eukaryode() : base()
-        {
+		{
 			Config.DefaultSprite = "white_square";
 
 			Services.AddService(new GeoTimeService(this));
 			Services.AddService(new BiolayerService(this));
 			Services.AddService(new MapService(this));
-        }
+		}
 
-        protected override void Initialize()
+		protected override void Initialize()
 		{
 			base.Initialize();
 
@@ -42,14 +40,14 @@ namespace Eukaryode
 			Sprite.Create(testBerry, "strawberry");
 		}
 
-        protected override void Update(GameTime gameTime)
-        {
+		protected override void Update(GameTime gameTime)
+		{
 			base.Update(gameTime);
 
 			if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.IsKeyDown(Keys.Escape))
-                Exit();
+				Exit();
 
-			if(Keyboard.IsKeyPressed(Keys.P))
+			if (Keyboard.IsKeyPressed(Keys.P))
 			{
 				_tectonicWorld.TectonicTick(0.1f);
 			}

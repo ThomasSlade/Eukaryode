@@ -2,9 +2,6 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Amino
 {
@@ -43,9 +40,9 @@ namespace Amino
 
 				// Where a key has been pressed, or released, for more than one frame,
 				// adjust its 'pressed / released this frame' state to just a 'pressed / released' state.
-				if(isDown)
+				if (isDown)
 				{
-					switch(_keyStates[key])
+					switch (_keyStates[key])
 					{
 						case KeyState.Up:
 						case KeyState.Released:

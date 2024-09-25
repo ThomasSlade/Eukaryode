@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Amino.UnitTest
 {

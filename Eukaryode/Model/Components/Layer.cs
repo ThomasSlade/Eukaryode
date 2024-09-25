@@ -27,7 +27,7 @@ namespace Eukaryode
 		protected Layer(Entity owner, LayerCell ownerCell, Biolayer biolayer) : base(owner)
 		{
 			_biolayer = biolayer;
-			
+
 			if (!string.IsNullOrEmpty(_biolayer.SpriteKey))
 			{
 				ownerCell.SurfaceAltitudeChanged += OnSurfaceAltitudeChanged;

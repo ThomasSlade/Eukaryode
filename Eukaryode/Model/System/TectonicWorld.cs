@@ -159,7 +159,7 @@ namespace Eukaryode
 		/// </summary>
 		private void MovePoints()
 		{
-			int pointsSkippingNeighborsCount = 0;	// Count the cells moving to a cell which isn't in their moore neighborhood.
+			int pointsSkippingNeighborsCount = 0;   // Count the cells moving to a cell which isn't in their moore neighborhood.
 			for (int x = 0; x < Width; x++)
 			{
 				for (int y = 0; y < Height; y++)
@@ -167,13 +167,13 @@ namespace Eukaryode
 					if ((_flowGrid[x, y].Occupant.TargetCell - _flowGrid[x, y].Occupant.PositionCell).Length() > Math.Sqrt(2f))
 					{
 						pointsSkippingNeighborsCount++;
-						
+
 					}
 					_flowGrid[x, y].Move();
 				}
 			}
 
-			if(pointsSkippingNeighborsCount > 0)
+			if (pointsSkippingNeighborsCount > 0)
 			{
 				System.Diagnostics.Debug.WriteLine(
 					$"Warning: {pointsSkippingNeighborsCount} moved greater than the distance of a single cell this tectonic update. The results of the tectonic lerp may not match the target snapshot."
@@ -216,7 +216,7 @@ namespace Eukaryode
 					{
 						mergeCommands.Add(new MergeCommand(_flowGrid[x, y].Coordinates, _flowGrid[x, y].Incoming.Select(i => i.Coordinates).ToArray()));
 					}
-					else if(_flowGrid[x, y].Incoming.Count == 1)
+					else if (_flowGrid[x, y].Incoming.Count == 1)
 					{
 						moveCommands.Add(new MoveCommand(_flowGrid[x, y].Coordinates, _flowGrid[x, y].Incoming.First().Coordinates));
 					}

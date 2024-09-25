@@ -6,7 +6,7 @@ namespace Amino
 {
 	/// <summary> A component which adds a rendered <see cref="Texture2D"/> sprite to its entity. </summary>
 	public class Sprite : Component
-    {
+	{
 		/// <summary> The key of the texture the sprite renders. </summary>
 		public string TextureKey => _textureKey;
 		protected string _textureKey;
@@ -17,7 +17,7 @@ namespace Amino
 			get => _pixelsPerUnit;
 			set
 			{
-				if(value == _pixelsPerUnit)
+				if (value == _pixelsPerUnit)
 				{
 					return;
 				}
@@ -46,7 +46,7 @@ namespace Amino
 			get => _offsetFactor;
 			set
 			{
-				if(value == _offsetFactor)
+				if (value == _offsetFactor)
 				{
 					return;
 				}
@@ -87,8 +87,8 @@ namespace Amino
 		}
 
 		protected Sprite(Entity owner, string? textureKey = null) : base(owner)
-        {
-			if(textureKey == null)
+		{
+			if (textureKey == null)
 			{
 				if (Config.DefaultSprite == null)
 				{
@@ -96,10 +96,10 @@ namespace Amino
 				}
 				textureKey = Config.DefaultSprite;
 			}
-			
+
 			_textureKey = textureKey;
 			OffsetType = AnchorType.Centre;
 			PixelsPerUnit = Config.DefaultPixelsPerUnit;
 		}
-    }
+	}
 }

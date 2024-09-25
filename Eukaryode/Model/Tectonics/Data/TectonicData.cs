@@ -27,7 +27,7 @@ namespace Eukaryode.Tectonics
 			{
 				foreach (Color vert in plate.Vertices)
 				{
-					if(!_vertsToPlates.TryAdd(vert, plate))
+					if (!_vertsToPlates.TryAdd(vert, plate))
 					{
 						throw new InvalidDataException($"Plate Data '{_vertsToPlates[vert]}' and '{plate}' both contain vertex '{vert}'");
 					}

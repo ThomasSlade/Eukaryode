@@ -1,13 +1,13 @@
-﻿using Microsoft.Xna.Framework;
-using System;
-using ImGuiNET;
+﻿using ImGuiNET;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Amino
 {
 	/// <summary> A game created with the Amino framework. Provides basic utilities and services which elaborate on the Monogame <see cref="Game"/>. </summary>
 	public class AminoGame : Game, IGameServiceProvider, IViewServiceProvider
-    {
+	{
 		/// <summary> The game's <see cref="GraphicsDeviceManager"/>. This is automatically injected into the template of a <see cref="Game"/> class. </summary>
 		private GraphicsDeviceManager _graphics;
 
@@ -32,18 +32,18 @@ namespace Amino
 		private bool _imguiEnabled = false;
 
 		public AminoGame()
-        {
-            _graphics = new GraphicsDeviceManager(this);
+		{
+			_graphics = new GraphicsDeviceManager(this);
 			_graphics.PreferredBackBufferWidth = 1600;
 			_graphics.PreferredBackBufferHeight = 900;
 			_imGuiRenderer = new ImGuiRenderer(this, this);
-			
+
 			Keyboard = new KeyboardManager();
 			Services.AddService<KeyboardManager>(Keyboard);
 			Content = new ContentService(base.Content, "Content");
-			
-            IsMouseVisible = true;
-        }
+
+			IsMouseVisible = true;
+		}
 
 		protected override void Initialize()
 		{
@@ -60,19 +60,19 @@ namespace Amino
 			base.Update(gameTime);
 			Updating?.Invoke(gameTime);
 
-			if(Keyboard.IsKeyPressed(Config.ImGuiKey))
+			if (Keyboard.IsKeyPressed(Config.ImGuiKey))
 			{
 				_imguiEnabled = !_imguiEnabled;
 			}
 		}
 
 		protected override void Draw(GameTime gameTime)
-        {
+		{
 			GraphicsDevice.Clear(BackgroundColor);
 			base.Draw(gameTime);
-            Drawing?.Invoke(gameTime);
+			Drawing?.Invoke(gameTime);
 
-			if(_imguiEnabled)
+			if (_imguiEnabled)
 			{
 				_imGuiRenderer.BeforeImGui(gameTime);
 				ImGui.Begin(GetType().Name);

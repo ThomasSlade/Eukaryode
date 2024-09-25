@@ -1,6 +1,5 @@
 ﻿using Amino;
 using Microsoft.Xna.Framework;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 
@@ -83,7 +82,7 @@ namespace Eukaryode.Tectonics
 		/// <param name="mergeMovementVectors"> If false, the resulting point will have no movement vector. </param>
 		public FlowPoint(FlowPoint[] toMerge, bool mergeMovementVectors)
 		{
-			if(toMerge.Length == 0)
+			if (toMerge.Length == 0)
 			{
 				throw new ArgumentException(nameof(toMerge));
 			}
@@ -104,7 +103,7 @@ namespace Eukaryode.Tectonics
 				CurrentAltitude += mergeTile.CurrentAltitude;
 				triangleCounts.TryAdd(mergeTile.Triangle, 0);
 				triangleCounts[mergeTile.Triangle]++;
-				if(!mostFrequentTriangle.HasValue || triangleCounts[mergeTile.Triangle] > triangleCounts[mostFrequentTriangle.Value])
+				if (!mostFrequentTriangle.HasValue || triangleCounts[mergeTile.Triangle] > triangleCounts[mostFrequentTriangle.Value])
 				{
 					mostFrequentTriangle = mergeTile.Triangle;
 				}
@@ -118,7 +117,7 @@ namespace Eukaryode.Tectonics
 			DestinationCell = (Vector2Int)avgTargetLocation;
 			CurrentAltitude /= toMerge.Length;
 
-			if(mergeMovementVectors)
+			if (mergeMovementVectors)
 			{
 				Movement = avgMovement;
 			}

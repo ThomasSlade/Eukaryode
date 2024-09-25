@@ -1,5 +1,4 @@
-﻿using ImGuiNET;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -8,7 +7,7 @@ namespace Amino
 {
 	/// <summary> A base 2D world, into which <see cref="Entity"/> instances can be placed. </summary>
 	public class Scene : IGameServiceProvider
-    {
+	{
 		/// <summary> Provides services pertaining to the game's visual systems. May be left as null in the case of a model-only environment. </summary>
 		private IViewServiceProvider? _view;
 
@@ -58,7 +57,7 @@ namespace Amino
 		}
 
 		private Scene(IGameServiceProvider game, IViewServiceProvider? view = null) : base()
-        {
+		{
 			_game = game;
 			game.Updating += Update;
 			game.ImGuiUpdating += ImGui;
@@ -72,7 +71,7 @@ namespace Amino
 				Renderer = new RenderService(game, view, Camera);
 			}
 
-			
+
 		}
 
 		public T GetService<T>() where T : class => Services.GetService<T>();
@@ -86,14 +85,14 @@ namespace Amino
 
 		protected void ImGui(GameTime gameTime)
 		{
-			
+
 		}
 
-		
+
 
 		public void OnEntityCreated(Entity newEntity, bool isRoot = false)
 		{
-			if(isRoot)
+			if (isRoot)
 			{
 				OnEntityRooted(newEntity);
 			}
@@ -120,7 +119,7 @@ namespace Amino
 
 		public void OnEntityUnrooted(Entity rootEntity)
 		{
-			if(!_rootEntities.Remove(rootEntity))
+			if (!_rootEntities.Remove(rootEntity))
 			{
 				throw new InvalidOperationException($"Entity '{rootEntity}' was reported as no longer being a root-entity to the scene, but was not in the root-entities collection.");
 			}

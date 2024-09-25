@@ -36,7 +36,7 @@ namespace Amino
 				AnchorType.TopLeft => new Vector2(0f, 0f),
 				AnchorType.Top => new Vector2(0.5f, 0f),
 				AnchorType.TopRight => new Vector2(1f, 0f),
-				AnchorType.Other => new Vector2(0f, 1f),	// Bottom Left by default.
+				AnchorType.Other => new Vector2(0f, 1f),    // Bottom Left by default.
 				_ => throw new NotImplementedException($"A corresponding vector hasn't been defined for {nameof(AnchorType)} '{value}'")
 			};
 		}
@@ -44,9 +44,9 @@ namespace Amino
 		/// <summary> Convert this <see cref="Vector2"/> to an <see cref="AnchorType"/>. </summary>
 		public static AnchorType ToAnchorType(this Vector2 value)
 		{
-			if(value.X == 0f)
+			if (value.X == 0f)
 			{
-				if(value.Y == 0f)
+				if (value.Y == 0f)
 				{
 					return AnchorType.BottomLeft;
 				}
@@ -54,7 +54,7 @@ namespace Amino
 				{
 					return AnchorType.Bottom;
 				}
-				else if(value.Y == 1f)
+				else if (value.Y == 1f)
 				{
 					return AnchorType.BottomRight;
 				}

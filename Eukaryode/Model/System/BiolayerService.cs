@@ -32,9 +32,9 @@ namespace Eukaryode
 		{
 			_allBiolayers = services.Content.LoadAllResources<Biolayer>(ContentDirectory).ToArray();
 			HashSet<int> usedIndices = new HashSet<int>();
-			foreach(Biolayer biolayer in _allBiolayers)
+			foreach (Biolayer biolayer in _allBiolayers)
 			{
-				if(!usedIndices.Add(biolayer.LayerIndex))
+				if (!usedIndices.Add(biolayer.LayerIndex))
 				{
 					throw new InvalidDataException($"Biolayer '{biolayer}' has non-unique {nameof(Biolayer.LayerIndex)} '{biolayer.LayerIndex}'.");
 				}
@@ -42,7 +42,7 @@ namespace Eukaryode
 
 			foreach (Biolayer biolayer in _allBiolayers)
 			{
-				switch(biolayer.BiolayerType)
+				switch (biolayer.BiolayerType)
 				{
 					case Biolayer.Type.Air: SetConstantLayer(ref _air, biolayer); break;
 					case Biolayer.Type.OceanSurface: SetConstantLayer(ref _oceanSurface, biolayer); break;
@@ -58,7 +58,7 @@ namespace Eukaryode
 			Biolayer prev = null;
 			foreach (Biolayer waterColumn in _allWaterColumns)
 			{
-				if(waterColumn.OceanDepth <= highestDepth)
+				if (waterColumn.OceanDepth <= highestDepth)
 				{
 					throw new InvalidDataException($"Biolayer '{waterColumn}'s {nameof(Biolayer.OceanDepth)} property was not higher than its predecessor in the layer order: '{prev}'.");
 				}

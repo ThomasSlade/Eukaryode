@@ -74,7 +74,7 @@ namespace Amino.UnitTest
 
 		private float GetTriangleAreas(Vector2[] polygon, int[] tris)
 		{
-			if(tris.Length != (polygon.Length - 2) * 3)
+			if (tris.Length != (polygon.Length - 2) * 3)
 			{
 				throw new ArgumentException($"The provided triangles do not contain the expected number of tri vertices for a polygon with '{polygon.Length}' corners ('{(polygon.Length - 2) * 3}' expected, but got '{tris.Length}').");
 			}

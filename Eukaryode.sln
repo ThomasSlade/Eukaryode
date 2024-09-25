@@ -9,7 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amino", "Amino\Amino.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Amino.UnitTest", "Amino.UnitTest\Amino.UnitTest.csproj", "{D5A05541-5EC5-4F3C-B5D3-D64A1745066A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eukaryode.UnitTest", "Eukaryode.UnitTest\Eukaryode.UnitTest.csproj", "{51B490B2-753F-439C-ABD6-373B5D95242D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eukaryode.UnitTest", "Eukaryode.UnitTest\Eukaryode.UnitTest.csproj", "{51B490B2-753F-439C-ABD6-373B5D95242D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C7CCA62C-2EC3-47BC-84E8-F08C5A569F98}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

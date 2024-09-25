@@ -17,7 +17,7 @@ namespace Amino
 			set
 			{
 				value = Math.Max(value, Config.MinimumCameraZoom);
-				if(value == _zoom)
+				if (value == _zoom)
 				{
 					return;
 				}

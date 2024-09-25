@@ -1,8 +1,8 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Amino;
+using Microsoft.Xna.Framework;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
-using Amino;
 
 namespace Eukaryode.Serialization
 {

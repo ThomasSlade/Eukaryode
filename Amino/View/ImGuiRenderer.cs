@@ -61,7 +61,7 @@ namespace Amino
 
 		private void OnTextInput(object? sender, Microsoft.Xna.Framework.TextInputEventArgs e)
 		{
-			if(e.Character == '\t')
+			if (e.Character == '\t')
 			{
 				return;
 			}
@@ -125,7 +125,7 @@ namespace Amino
 		/// <summary> Send the current XNA input state to ImGui. </summary>
 		private void UpdateInput()
 		{
-			if(!_game.IsActive)
+			if (!_game.IsActive)
 			{
 				return;
 			}
@@ -146,9 +146,9 @@ namespace Amino
 			_scrollWheelValue = mouse.ScrollWheelValue;
 			_horizontalScrollWheelValue = mouse.HorizontalScrollWheelValue;
 
-			foreach(Keys key in _allKeys)
+			foreach (Keys key in _allKeys)
 			{
-				if(TryGetImGuiKey(key, out ImGuiKey asImGuiKey))
+				if (TryGetImGuiKey(key, out ImGuiKey asImGuiKey))
 				{
 					io.AddKeyEvent(asImGuiKey, keyboard.IsKeyDown(key));
 				}
@@ -235,7 +235,7 @@ namespace Amino
 			}
 
 			// Expand buffers if we need more room.
-			if(drawData.TotalVtxCount > _vertexBufferSize)
+			if (drawData.TotalVtxCount > _vertexBufferSize)
 			{
 				_vertexBuffer?.Dispose();
 
@@ -244,7 +244,7 @@ namespace Amino
 				_vertexData = new byte[_vertexBufferSize * ImGuiVertDeclaration.Size];
 			}
 
-			if(drawData.TotalIdxCount > _indexBufferSize)
+			if (drawData.TotalIdxCount > _indexBufferSize)
 			{
 				_indexBuffer?.Dispose();
 
@@ -261,7 +261,7 @@ namespace Amino
 			{
 				ImDrawListPtr cmdList = drawData.CmdListsRange[cl];
 
-				fixed (void* vtxDstPtr = &_vertexData[vtxOffset * ImGuiVertDeclaration.Size]) 
+				fixed (void* vtxDstPtr = &_vertexData[vtxOffset * ImGuiVertDeclaration.Size])
 				fixed (void* idxDstPtr = &_indexData[idxOffset * sizeof(ushort)])
 				{
 					Buffer.MemoryCopy((void*)cmdList.VtxBuffer.Data, vtxDstPtr, _vertexData.Length, cmdList.VtxBuffer.Size * ImGuiVertDeclaration.Size);
